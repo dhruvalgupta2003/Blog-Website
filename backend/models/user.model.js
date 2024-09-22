@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
     email:{
         type: String,
-        required: true
+        required: true,
+        unique: true // ensure unique email addresses
     },
     password:{
         type: String,
@@ -29,9 +30,12 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    courses:[
+    blogs:[
         {   
-            courseId: String
+            blogId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Blog' // Reference to Blog model
+            }
         }
     ],
     resetPasswordToken: String,
